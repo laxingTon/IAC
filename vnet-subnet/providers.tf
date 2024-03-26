@@ -1,8 +1,9 @@
+# Declare required Terraform providers and their versions
 terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~>3.0"
+      version = "~>2.0"
     }
     random = {
       source  = "hashicorp/random"
@@ -11,6 +12,7 @@ terraform {
   }
 }
 
+# Configure the Azure provider
 provider "azurerm" {
   features {}
 }

@@ -28,6 +28,6 @@ resource "azurerm_network_security_group" "my_terraform_nsg" {
 }
 
 # Output the ID of the created network security group
-output "azurerm_securitygroup_id" {
+output "securitygroup_id" {
   value = azurerm_network_security_group.my_terraform_nsg.id
 }

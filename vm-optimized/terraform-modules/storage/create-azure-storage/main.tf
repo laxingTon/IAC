@@ -23,6 +23,6 @@ resource "azurerm_storage_account" "my_storage_account" {
 }       
 
 # Output the primary blob endpoint of the created storage account
-output "azure-storage-primary_blob_endpoint" {
+output "primary_blob_endpoint" {
   value = azurerm_storage_account.my_storage_account.primary_blob_endpoint
 }

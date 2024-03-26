@@ -13,60 +13,74 @@ variable "nsg_rules" {
   }))
 }
 
+# Define the Prefix for the resouces 
+variable "project_name" {
+  type        = string
+  description = "provide the project name to add as a prefix to the resources name"
+
+}
+
 # Define variable for resource group details
 variable "rg" {
   type = map(object({
-    name     = string  
-    location = map(string)  
+    name     = string
+    location = map(string)
   }))
   default = {
-    rg ={
-      name     = "eppvpc"   
+    rg = {
+      name = "vpc"
       location = {
-        "US" = "eastus"
+        "EastUS"         = "eastus"
+        "EastUS2"        = "eastus2"
+        "WestUS"         = "westus"
+        "CentralUS"      = "centralus"
+        "SouthCentralUS" = "southcentralus"
+        "NorthCentralUS" = "northcentralus"
+        "WestCentralUS"  = "westcentralus"
+        "BrazilSouth"    = "brazilsouth"
       }
     }
-  } 
+  }
 }
 
 # Define variable for virtual network details
 variable "vnet" {
   type = map(object({
-    name           = string  
-    address_prefix = list(string)  
+    name           = string
+    address_prefix = list(string)
   }))
   default = {
     vnet = {
-      name           = "lax-EPP-Vnet"   
+      name           = "vnet"
       address_prefix = ["10.0.0.0/16"]
     }
-  } 
+  }
 }
 
 # Define variable for subnet details
 variable "subnet" {
   type = map(object({
-    name           = string  
-    address_prefix = list(string)  
+    name           = string
+    address_prefix = list(string)
   }))
   default = {
     subnet = {
-      name           = "lax-EPP-subnet"   
+      name           = "subnet"
       address_prefix = ["10.0.1.0/24"]
-    } 
+    }
   }
 }
 
 # Define variable for public IP details
 variable "public_ip" {
   type = map(object({
-    name               = string  
-    allocation_method  = string  
+    name              = string
+    allocation_method = string
   }))
   default = {
     ip = {
-      name               = "lax-EPP-public-ip"   
-      allocation_method  = "Dynamic"
+      name              = "public-ip"
+      allocation_method = "Dynamic"
     }
   }
 }
@@ -81,15 +95,15 @@ variable "nsg_name" {
 # Define variable for network interface details
 variable "nic" {
   type = map(object({
-    name                    = string  
-    ip_config_name          = string  
-    private_ip_alloc        = string
+    name             = string
+    ip_config_name   = string
+    private_ip_alloc = string
   }))
   default = {
     nic = {
-      name                    = "lax-EPP-nic"   
-      ip_config_name          = "lax-EPP-nic-configuration"
-      private_ip_alloc        = "Dynamic"
+      name             = "nic"
+      ip_config_name   = "nic-configuration"
+      private_ip_alloc = "Dynamic"
     }
   }
 }
@@ -97,13 +111,13 @@ variable "nic" {
 # Define variable for storage account details
 variable "storage" {
   type = map(object({
-    tier              = string  
-    replication_type  = string
+    tier             = string
+    replication_type = string
   }))
   default = {
     storage = {
-      tier              = "Standard"   
-      replication_type  = "LRS"
+      tier             = "Standard"
+      replication_type = "LRS"
     }
   }
 }
@@ -111,37 +125,37 @@ variable "storage" {
 # Define variable for virtual machine details
 variable "vm" {
   type = map(object({
-    name                        = string
-    size                        = string
-    os_disk_name                = string 
-    os_disk_caching             = string
-    os_disk_storage_account     = string
-    src_image_publisher         = string
-    src_image_offer             = string
-    src_image_sku               = string
-    src_image_version           = string 
-    computer_name               = string
-    admin_username              = string 
-    ssh_timeout                 = string
-    file_source                 = string
-    file_destination            = string
+    name                    = string
+    size                    = string
+    os_disk_name            = string
+    os_disk_caching         = string
+    os_disk_storage_account = string
+    src_image_publisher     = string
+    src_image_offer         = string
+    src_image_sku           = string
+    src_image_version       = string
+    computer_name           = string
+    admin_username          = string
+    ssh_timeout             = string
+    file_source             = string
+    file_destination        = string
   }))
   default = {
     vm = {
-      name                        = "lax-EPP-vm"
-      size                        = "Standard_DS1_v2"
-      os_disk_name                = "myOsDisk"
-      os_disk_caching             = "ReadWrite"
-      os_disk_storage_account     = "Premium_LRS"
-      src_image_publisher         = "Canonical"
-      src_image_offer             = "0001-com-ubuntu-server-jammy"
-      src_image_sku               = "22_04-lts-gen2"
-      src_image_version           = "latest"
-      computer_name               = "hostname"
-      admin_username              = "azureadmin"
-      ssh_timeout                 = "4m"
-      file_source                 = "testfile.txt"
-      file_destination            = "/home/azureadmin/"
+      name                    = "vm"
+      size                    = "Standard_DS1_v2"
+      os_disk_name            = "myOsDisk"
+      os_disk_caching         = "ReadWrite"
+      os_disk_storage_account = "Premium_LRS"
+      src_image_publisher     = "Canonical"
+      src_image_offer         = "0001-com-ubuntu-server-jammy"
+      src_image_sku           = "22_04-lts-gen2"
+      src_image_version       = "latest"
+      computer_name           = "hostname"
+      admin_username          = "azureadmin"
+      ssh_timeout             = "4m"
+      file_source             = "testfile.txt"
+      file_destination        = "/home/azureadmin/"
     }
   }
 }

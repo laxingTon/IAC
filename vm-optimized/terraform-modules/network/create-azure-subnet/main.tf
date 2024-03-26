@@ -13,6 +13,6 @@ resource "azurerm_subnet" "my_terraform_subnet" {
 }
 
 # Output the ID of the created subnet
-output "azurerm_subnet_id" {
+output "subnet_id" {
   value = azurerm_subnet.my_terraform_subnet.id
 }

@@ -24,6 +24,6 @@ resource "azurerm_network_interface" "my_terraform_nic" {
 }
 
 # Output the ID of the created network interface
-output "azurerm_network_interface_id" {
+output "network_interface_id" {
   value = azurerm_network_interface.my_terraform_nic.id
 }

@@ -13,6 +13,6 @@ resource "azurerm_public_ip" "my_terraform_public_ip" {
 }
 
 # Output the ID of the created public IP
-output "azurerm_public_ip_id" {
+output "public_ip_id" {
   value = azurerm_public_ip.my_terraform_public_ip.id
 }

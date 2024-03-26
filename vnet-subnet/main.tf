@@ -1,63 +1,62 @@
-# Resource Group
-module "resource-group" {
+# Resource Group Module
+module "resource_group" {
   source = "./terraform-modules/resource_group"
 
-  resource_group_location = var.resource_group_location.US
-  resource_group_name = var.resource_group_name
+  # Set the location for the resource group
+  resource_group_location = var.resource_group.rg.location.EastUS
+
+  # Set the name for the resource group
+  resource_group_name = "${var.project_name}${var.resource_group.rg.name}"
 }
 
-# Virtual Network
-module "virtual-network" {
+# Virtual Network Module
+module "virtual_network" {
   source = "./terraform-modules/virtual_network"
 
-  virtual_network_name = var.virtual_network.vnet.name
+  # Set the name and address space for the virtual network
+  virtual_network_name          = "${var.project_name}${var.virtual_network.vnet.name}"
   virtual_network_address_space = var.virtual_network.vnet.address_prefix
-  resource_group_location = module.resource-group.resource_group_location
-  resource_group_name = module.resource-group.resource_group_name
+  tags                          = var.virtual_network.vnet.tags
+
+  # Associate the virtual network with the specified resource group
+  resource_group_location = module.resource_group.resource_group_location
+  resource_group_name     = module.resource_group.resource_group_name
+
 }
 
-# Subnet
-module "DB_subnet" {
-  source = "./terraform-modules/subnet"
-
-  azurerm_subnet_name = var.azurerm_subnet.db.name
-  resource_group_name = module.resource-group.resource_group_name
-  azurerm_subnet_virtual_network_name = module.virtual-network.virtual_network_name
-  azurerm_subnet_address_prefixes = var.azurerm_subnet.db.address_prefix
+# Define Subnets using a dynamic block
+locals {
+  subnets = {
+    db_subnet = {
+      name             = var.subnet.db.name
+      address_prefixes = var.subnet.db.address_prefix
+    }
+    mq_subnet = {
+      name             = var.subnet.mq.name
+      address_prefixes = var.subnet.mq.address_prefix
+    }
+    file_storage_subnet = {
+      name             = var.subnet.file_storage.name
+      address_prefixes = var.subnet.file_storage.address_prefix
+    }
+    eventhub_subnet = {
+      name             = var.subnet.eventhub.name
+      address_prefixes = var.subnet.eventhub.address_prefix
+    }
+    private_endpoint_subnet = {
+      name             = var.subnet.private_endpoint.name
+      address_prefixes = var.subnet.private_endpoint.address_prefix
+    }
+  }
 }
 
-module "MQ_subnet" {
+# Create Subnets dynamically
+module "subnets" {
   source = "./terraform-modules/subnet"
 
-  azurerm_subnet_name = var.azurerm_subnet.mq.name
-  resource_group_name = module.resource-group.resource_group_name
-  azurerm_subnet_virtual_network_name = module.virtual-network.virtual_network_name
-  azurerm_subnet_address_prefixes = var.azurerm_subnet.mq.address_prefix
-}
-
-module "File_Storage_subnet" {
-  source = "./terraform-modules/subnet"
-
-  azurerm_subnet_name = var.azurerm_subnet.file_storage.name
-  resource_group_name = module.resource-group.resource_group_name
-  azurerm_subnet_virtual_network_name = module.virtual-network.virtual_network_name
-  azurerm_subnet_address_prefixes = var.azurerm_subnet.file_storage.address_prefix
-}
-
-module "EventHub_subnet" {
-  source = "./terraform-modules/subnet"
-
-  azurerm_subnet_name = var.azurerm_subnet.eventhub.name
-  resource_group_name = module.resource-group.resource_group_name
-  azurerm_subnet_virtual_network_name = module.virtual-network.virtual_network_name
-  azurerm_subnet_address_prefixes = var.azurerm_subnet.eventhub.address_prefix
-}
-
-module "Private_Endpoint_subnet" {
-  source = "./terraform-modules/subnet"
-
-  azurerm_subnet_name = var.azurerm_subnet.private_endpoint.name
-  resource_group_name = module.resource-group.resource_group_name
-  azurerm_subnet_virtual_network_name = module.virtual-network.virtual_network_name
-  azurerm_subnet_address_prefixes = var.azurerm_subnet.private_endpoint.address_prefix
+  for_each                    = local.subnets
+  subnet_name                 = "${var.project_name}${each.value.name}"
+  resource_group_name         = module.resource_group.resource_group_name
+  subnet_virtual_network_name = module.virtual_network.virtual_network_name
+  subnet_address_prefixes     = each.value.address_prefixes
 }

@@ -9,23 +9,24 @@ module "resource-group" {
 #Storage Account
 module "storage-account" {
   source = "./terraform-modules/storage-account"
-
-  storage_name=var.storage_name
+ 
+  # storage_name=var.storage_prefix
+  storage_name=var.storage_account.storage_acc.storage_name
   resource_group_location = module.resource-group.resource_group_location
   resource_group_name = module.resource-group.resource_group_name
-  account_tier=var.account_tier
-  replication_type=var.replication_type
+  account_tier=var.storage-account.storage_acc.account_tier
+  replication_type=var.storage-account.storage_acc.replication_type
 }
 
 #Storage Share
 module "storage-share" {
   source = "./terraform-modules/storage-share"
-
-  storage_name=var.storage_name
-  sharename=var.sharename
-  quota=var.quota
-  id=var.id
-  permissions=var.permissions
-  start=var.start
-  expiry=var.expiry
+  
+  storage_name= module.storage-account.storage_name
+  sharename=var.storage-share.storage_shar.sharename
+  quota=var.storage-share.storage_shar.quota
+  id=var.storage-share.storage_shar.id
+  permissions=var.storage-share.storage_shar.permissions
+  start=var.storage-share.storage_shar.start
+  expiry=var.storage-share.storage_shar.expiry
 }

@@ -11,59 +11,45 @@ variable "resource_group_name" {
   description = "Name of the resource group."
 }
 
-variable "storage_name" {
-  type        = string
-  default     = "eppstorage"
-  description = "storage-name"
+variable "storage-share" {
+  type = map(object({
+    storage_name=string
+    sharename=string
+    quota=number
+    id=string
+    permissions=string
+    start=string
+    expiry=string
+  }))
+  default = {
+    storage_shar = {
+    sharename="eppshare"
+    storage_name="eppstorage"
+    quota=50
+    id="MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI"
+    permissions="rwdl"
+    expiry="2019-07-02T10:38:21.0000000Z"
+    start="2019-07-02T09:38:21.0000000Z"
+    }
+  }
+  
+}
+
+variable "storage-account" {
+  type = map(object({
+    storage_name=string
+    account_tier=string
+    replication_type=string
+  }))
+  default = {
+    storage_acc = {
+      storage_name="eppstorage"
+      account_tier="Standard"
+      replication_type="LRS"
+    }
+  }
+  
 }
 
 
-variable "account_tier" {
-  type        = string
-  default     = "Standard"
-  description = "account-tier"
-}
-
-variable "replication_type" {
-  type        = string
-  default     = "LRS"
-  description = "replication-type"
-}
-
-variable "sharename" {
-  type        = string
-  default     = "eppshare"
-  description = "sharename"
-}
-
-
-variable "quota" {
-  type        = number
-  default     = 50
-  description = "quota"
-}
-
-variable "id" {
-  type        = string
-  default     = "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI"
-  description = "id"
-}
-
-variable "permissions" {
-  type        = string
-  default     = "rwdl"
-  description = "permissions"
-}
-
-variable "expiry" {
-  type        = string
-  default     = "2019-07-02T10:38:21.0000000Z"
-  description = "expiry"
-}
-
-variable "start" {
-  type        = string
-  default     = "2019-07-02T09:38:21.0000000Z"
-  description = "start"
-}
 

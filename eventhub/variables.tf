@@ -11,49 +11,37 @@ variable "resource_group_name" {
   description = "Name of the resource group."
 }
 
-variable "namespace-name" {
-  type        = string
-  default     = "epp-namespace"
-  description = "Name of the resource group."
+
+variable "eventhub-map" {
+  type = map(object({
+   namespace-name=string
+   eventhub-name=string
+   partition=number
+   msg=number
+  }))
+  default = {
+    map = {
+      namespace-name="epp-namespace"
+      eventhub-name="epp-namespace1"
+      partition=2
+      msg=1
+    }
+  }
+  
 }
 
-variable "namespace-sku" {
-  type        = string
-  default     = "Standard"
-  description = "Name of the resource group."
+variable "namespace-map" {
+  type = map(object({
+    namespace-sku=string
+    namespace-capacity=number
+    namespace-env=string
+  }))
+  default = {
+    map1 = {
+      namespace-sku="Standard"
+      namespace-capacity=1
+      namespace-env="Prod"
+    }
+  }
+  
 }
-
-variable "namespace-capacity" {
-  type        = number
-  default     = 1
-  description = "Name of the resource group."
-}
-
-
-variable "namespace-env" {
-  type        = string
-  default     = "Prod"
-  description = "Name of the resource group."
-}
-
-
-variable "partition" {
-  type        = number
-  default     = 2
-  description = "Name of the resource group."
-}
-
-variable "msg" {
-  type        = number
-  default     = 1
-  description = "Name of the resource group."
-}
-
-
-variable "eventhub-name" {
-  type        = string
-  default     = "epp-namespace"
-  description = "Name of the resource group."
-}
-
-

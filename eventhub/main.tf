@@ -9,22 +9,22 @@ module "resource-group" {
 module "namespace" {
   source = "./terraform-modules/namespace"
 
-  namespace-name=var.namespace-name
+  namespace-name=var.eventhub-map.space.namespace-name
   resource_group_location = module.resource-group.resource_group_location
   resource_group_name = module.resource-group.resource_group_name
-  namespace-sku=var.namespace-sku
-  namespace-capacity=var.namespace-capacity
-  namespace-env=var.namespace-env
+  namespace-sku=var.namespace1-map.map1.namespace-sku
+  namespace-capacity=var.namespace-map.map1.namespace-capacity
+  namespace-env=var.namespace-map.map1.namespace-env
 }
 
 
 module "eventhub" {
   source = "./terraform-modules/eventhub"
 
-  namespace-name=module.namespace.namespace-name
+  namespace-name=module.namespace.space.namespace-name
   resource_group_location = module.resource-group.resource_group_location
   resource_group_name = module.resource-group.resource_group_name
-  eventhub-name = var.eventhub-name
-  partition = var.partition
-  msg = var.msg
+  eventhub-name = var.eventhub-map.space.eventhub-name
+  partition = var.eventhub-map.space.partition
+  msg = var.eventhub-map.space.msg
 }

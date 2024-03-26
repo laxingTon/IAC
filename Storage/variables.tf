@@ -14,9 +14,6 @@ variable "resource_group_name" {
 variable "storage-share" {
   type = map(object({
     storage_name=string
-    account_tier=string
-    replication_type=string
-    storage_name=string
     sharename=string
     quota=number
     id=string
@@ -27,6 +24,7 @@ variable "storage-share" {
   default = {
     storage_shar = {
     sharename="eppshare"
+    storage_name="eppstorage"
     quota=50
     id="MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI"
     permissions="rwdl"

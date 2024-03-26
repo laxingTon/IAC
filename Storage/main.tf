@@ -10,7 +10,6 @@ module "resource-group" {
 module "storage-account" {
   source = "./terraform-modules/storage-account"
  
-  # storage_name=var.storage_prefix
   storage_name=var.storage_account.storage_acc.storage_name
   resource_group_location = module.resource-group.resource_group_location
   resource_group_name = module.resource-group.resource_group_name

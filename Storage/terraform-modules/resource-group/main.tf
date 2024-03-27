@@ -1,3 +1,4 @@
+#Variables
 variable "resource_group_location" {}
 variable "resource_group_name" {}
 
@@ -7,7 +8,7 @@ resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
 }
 
-
+#Values
 output "resource_group_name" {
   value = azurerm_resource_group.rg.name
 }

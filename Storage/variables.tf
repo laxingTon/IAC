@@ -1,3 +1,4 @@
+# Define resource group configuration
 variable "resource_group_location" {
   type = map(string)
   default = {
@@ -11,6 +12,7 @@ variable "resource_group_name" {
   description = "Name of the resource group."
 }
 
+# Define Storageshare configuration
 variable "storage-share" {
   type = map(object({
     storage_name=string
@@ -35,6 +37,7 @@ variable "storage-share" {
   
 }
 
+# Define StorageAccount configuration
 variable "storage-account" {
   type = map(object({
     storage_name=string

@@ -1,3 +1,4 @@
+#Variables
 variable "storage_name" {}
 variable "sharename" {}
 variable "quota" {}

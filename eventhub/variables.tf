@@ -1,3 +1,4 @@
+# Define resource group configuration
 variable "resource_group_location" {
   type = map(string)
   default = {
@@ -11,7 +12,7 @@ variable "resource_group_name" {
   description = "Name of the resource group."
 }
 
-
+# Define Eventhub configuration
 variable "eventhub-map" {
   type = map(object({
    namespace-name=string
@@ -30,6 +31,7 @@ variable "eventhub-map" {
   
 }
 
+# Define Namespace configuration
 variable "namespace-map" {
   type = map(object({
     namespace-sku=string

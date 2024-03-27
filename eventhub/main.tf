@@ -1,3 +1,4 @@
+#Resource Group
 module "resource-group" {
   source = "./terraform-modules/resource-group"
 
@@ -5,7 +6,7 @@ module "resource-group" {
   resource_group_name = var.resource_group_name
 }
 
-
+#Namespace
 module "namespace" {
   source = "./terraform-modules/namespace"
 
@@ -18,6 +19,7 @@ module "namespace" {
 }
 
 
+#Eventhub
 module "eventhub" {
   source = "./terraform-modules/eventhub"
 

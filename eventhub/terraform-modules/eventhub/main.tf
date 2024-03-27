@@ -1,3 +1,4 @@
+#Variables
 variable "resource_group_location" {}
 variable "resource_group_name" {}
 variable "namespace-name" {}
@@ -6,6 +7,7 @@ variable "partition" {}
 variable "msg" {}
 
 
+#Creating Eventhub
 resource "azurerm_eventhub" "epp-eventhub" {
   name                = var.eventhub-name
   namespace_name      = var.namespace-name

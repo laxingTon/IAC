@@ -3,7 +3,6 @@ variable "vm_id" {}
 variable "lun" {}
 variable "caching" {}
 
-
 #VM_data_disk Attachment
 resource "azurerm_virtual_machine_data_disk_attachment" "disk" {
   managed_disk_id    = var.disk_id

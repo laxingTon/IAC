@@ -2,15 +2,17 @@
 module "resource-group" {
   source = "./terraform-modules/resource-group"
 
-  resource_group_location = var.resource_group_location.US
-  resource_group_name = var.resource_group_name
+  resource_group_location = var.resource_group.rg.location.EastUS
+  resource_group_name = "${var.project_name}${var.resource_group.rg.name}"
+  # resource_group_name = var.resource_group_name
 }
 
 #Storage Account
 module "storage-account" {
   source = "./terraform-modules/storage-account"
  
-  storage_name=var.storage_account.storage_acc.storage_name
+  storage_name="${var.project_name}${var.storage-account.storage_acc.storage_name}"
+  # storage_name=var.storage-account.storage_acc.storage_name
   resource_group_location = module.resource-group.resource_group_location
   resource_group_name = module.resource-group.resource_group_name
   account_tier=var.storage-account.storage_acc.account_tier

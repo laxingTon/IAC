@@ -102,3 +102,30 @@ module "azure-vm" {
   file_source                      = var.vm.vm.file_source
   file_destination                 = var.vm.vm.file_destination
 }
+
+module "additional_disk" {
+  source = "./terraform-modules/storage/additional_disk"
+  
+   
+  # rg_name  = module.azure-resource_group.rg.name
+  
+  # rg_location                                      = module.azure-resource-group.rg_location
+  # rg_name                                          = module.azure-resource-group.rg_name
+
+  diskname = var.additional.disk.diskname
+  storage_account_type = var.additional.disk.storage_account_type
+  create_option = var.additional.disk.create_option
+  disk_size_gb = var.additional.disk.disk_size_gb
+  
+  }
+
+
+  module "disk_attachment" {
+  source = "./terraform-modules/storage/disk_attachment"
+
+   vm_id = module.azure-vm.vm_id
+   disk_id = var.disk.attachment.disk_id
+   lun = var.disk.attachment.lun
+   caching = var.disk.attachment.caching
+    
+  }

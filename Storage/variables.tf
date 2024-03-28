@@ -1,15 +1,44 @@
-# Define resource group configuration
-variable "resource_group_location" {
-  type = map(string)
-  default = {
-    "US" = "eastus"
-  }
-  description = "Location of the resource group."
-}
+# # Define resource group configuration
+# variable "resource_group_location" {
+#   type = map(string)
+#   default = {
+#     "US" = "eastus"
+#   }
+#   description = "Location of the resource group."
+# }
 
 variable "resource_group_name" {
   type        = string
   description = "Name of the resource group."
+}
+
+# Define project name used as a prefix for resource names
+variable "project_name" {
+  type        = string
+  description = "Project name to prefix resource names"
+}
+
+# Define resource group configuration
+variable "resource_group" {
+  type = map(object({
+    name     = string
+    location = map(string)
+  }))
+  default = {
+    rg = {
+      name = "rg"
+      location = {
+        "EastUS"         = "eastus"
+        "EastUS2"        = "eastus2"
+        "WestUS"         = "westus"
+        "CentralUS"      = "centralus"
+        "SouthCentralUS" = "southcentralus"
+        "NorthCentralUS" = "northcentralus"
+        "WestCentralUS"  = "westcentralus"
+        "BrazilSouth"    = "brazilsouth"
+      }
+    }
+  }
 }
 
 # Define Storageshare configuration

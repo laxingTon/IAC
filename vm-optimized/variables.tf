@@ -159,3 +159,70 @@ variable "vm" {
     }
   }
 }
+
+
+# Define StorageAccount configuration
+  variable "additional" {
+    type = map(object({
+        diskname=string
+        storage_account_type=string
+        create_option=string
+        disk_size_gb=number
+        # lun=number
+        # caching=string
+    }))
+    default = {
+      disk = {
+        diskname="epp-disk"
+        storage_account_type="Standard_LRS"
+        create_option="Empty"
+        disk_size_gb=10
+        # lun=10
+        # caching="ReadWrite"
+      }
+    }
+    
+  }
+
+
+
+  
+# Define StorageAccount configuration
+  variable "disk" {
+    type = map(object({
+        lun=number
+        caching=string
+    }))
+    default = {
+      attachment = {
+        lun=10
+        caching="ReadWrite"
+      }
+    }
+    
+  }
+
+
+
+  # # Define StorageAccount configuration
+  # variable "disk" {
+  #   type = map(object({
+  #       vm_disk_name=string
+  #       storage_account_type=string
+  #       create_option=string
+  #       disk_size_gb=number
+  #       lun=number
+  #       caching=string
+  #   }))
+  #   default = {
+  #     mount = {
+  #       # vm_disk_name="disk-1"
+  #       storage_account_type="Standard_LRS"
+  #       create_option="Empty"
+  #       disk_size_gb=10
+  #       lun=10
+  #       caching="ReadWrite"
+  #     }
+  #   }
+    
+  # }

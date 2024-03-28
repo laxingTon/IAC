@@ -194,3 +194,40 @@ variable "file_destination" {
 }
 
 
+
+
+
+
+# variable "resource_group_location" {}
+# variable "resource_group_name" {}
+# variable "vm_name" {}
+# variable "vm_id" {}
+# variable "vm_disk_name" {}
+# variable "storage_account_type" {}
+# variable "create_option" {}
+# variable "disk_size_gb" {}
+# variable "lun" {}
+# variable "caching" {}
+
+  # # Define StorageAccount configuration
+  # variable "disk" {
+  #   type = map(object({
+  #       vm_disk_name=string
+  #       storage_account_type=string
+  #       create_option=string
+  #       disk_size_gb=number
+  #       lun=number
+  #       caching=string
+  #   }))
+  #   default = {
+  #     mount = {
+  #       # vm_disk_name="disk-1"
+  #       storage_account_type="Standard_LRS"
+  #       create_option="Empty"
+  #       disk_size_gb=10
+  #       lun=10
+  #       caching="ReadWrite"
+  #     }
+  #   }
+    
+  # }

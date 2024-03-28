@@ -107,3 +107,14 @@ module "azure-vm" {
 
 
 }   
+
+
+module "vm_mounts" {
+  source = "./terraform-modules/disk-mount"
+
+    resource_group_location = module.azure-resource-group.resource_group_location
+    resource_group_name = module.azure-resource-group.resource_group_name
+    vm_id = module.azure-vm.vm_id
+    vm_name = module.azure-vm.vm_name
+    
+  }
